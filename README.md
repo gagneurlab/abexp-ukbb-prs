@@ -11,3 +11,5 @@ Given the polygenic score ID *PGS001954* for HDL-Cholesterol:
 snakemake /some_dir/PGS001954.sscore
 ```
 computes the polygenic risk scores for *PGS001954* on the plink2 genomic data specified in the config.yaml.
+
+The column *SCORE1_AVG* in */some_dir/PGS001954.sscore* then contains the risk scores.
