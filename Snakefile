@@ -30,7 +30,7 @@ rule format_pgs_weights:
 		sed -i '/__/d' {output}
 		rm {input}.temp
 		"""
-
+        
 #Computes risk scores for individuals in the plink2 binary genotype data specified in the config. Reads precomputed allele counts to fill in missing genotype data (see plink2 docs).
 rule risk_score_calc:
 	input: 

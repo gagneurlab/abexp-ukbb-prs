@@ -1,4 +1,4 @@
 plink2_binary_files: "/s/project/uk_biobank/processed/Imputation/ukbb_imputation"
 plink2_allele_counts: "/s/project/uk_biobank/processed/allele_freq/allele_counts.acount"
-pgs_harmonizer: "/data/ouga/home/ag_gagneur/lindnjon/pgs-harmonizer/"
+pgs_harmonizer: "./pgs-harmonizer/"
 reference_genome: "GRCh37"

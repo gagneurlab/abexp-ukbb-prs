@@ -1,0 +1,3 @@
+[submodule "pgs-harmonizer"]
+	path = pgs-harmonizer
+	url = https://github.com/PGScatalog/pgs-harmonizer
