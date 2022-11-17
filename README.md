@@ -6,6 +6,8 @@ For use within the lab you can activate the conda environment *prs*:
 ```bash
 conda activate prs
 ```
+or use the *environment.yaml* to create a new conda environment with the necessary dependencies.
+
 Given the polygenic score ID *PGS001954* for HDL-Cholesterol:
 ```bash
 snakemake /some_dir/PGS001954.sscore

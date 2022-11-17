@@ -1,10 +1,10 @@
 name: prs
 dependencies:
-- plink2
-- snakemake
-- pip
+- plink2=2.00a3.3
+- snakemake=7.18.2
+- pip=22.3.1
 - pip:
-  - cyvcf2
-  - pyliftover
-  - requests
-  - tqdm
+  - cyvcf2==0.30.18
+  - pyliftover==0.4
+  - requests==2.28.1
+  - tqdm==4.64.1
