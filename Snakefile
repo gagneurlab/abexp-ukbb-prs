@@ -2,6 +2,9 @@ configfile: "config.yaml"
 
 #Downloads the PGS-Score from https://www.pgscatalog.org for given Polygenic Score ID
 rule download_PGS_catalog:
+    threads: 1
+    resources:
+        mem_mb=500
 	output:
 		"{path_to_dir}PGS{id, [0-9]+}.txt.gz"
 	shell:
@@ -9,6 +12,9 @@ rule download_PGS_catalog:
 
 #Lifts the PGS-Score into the reference genome specified in the config
 rule harmonize_pgs:
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, attempt, threads: (4000 * threads) * attempt
 	input:
 		"{dir}PGS{id, [0-9]+}.txt.gz"
 	output:
@@ -18,6 +24,9 @@ rule harmonize_pgs:
 
 #Removes header rows and sets variant-id column to match with UKBB format 
 rule format_pgs_weights:
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, attempt, threads: (4000 * threads) * attempt
 	input:
 		f"{{dir}}PGS{{id, [0-9]+}}_hmPOS_{config['reference_genome']}.txt"
 	output:
@@ -33,6 +42,9 @@ rule format_pgs_weights:
         
 #Computes risk scores for individuals in the plink2 binary genotype data specified in the config. Reads precomputed allele counts to fill in missing genotype data (see plink2 docs).
 rule risk_score_calc:
+    threads: 8
+    resources:
+        mem_mb=lambda wildcards, attempt, threads: (4000 * threads) * attempt
 	input: 
 		"{PGS_file}_weights.txt"
 	output:
