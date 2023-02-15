@@ -35,9 +35,11 @@ rule format_pgs_weights:
         r"""
         sed -i '/^[@#]/ d' {input}
         awk -F '\t' 'BEGIN {{OFS=FS}} NR==1{{while((getline var<"columns.txt") > 0) {{for(i=1;i<=NF;i++) if($i==var) {{cols[i]=1;break}}}} close("columns.txt")}} {{for(i=1;i<=NF;i++) {{printf "%s%s", (cols[i]?$i:""), (i==NF?"\n":(cols[i]?OFS:""))}}}}' {input} > {input}.temp
-        awk -vOFS="\t" '{{$6="chr"$4":"$5":"$2">"$1}}1' {input}.temp > {output}
+        awk -vOFS="\t" '{{$6="chr"$4":"$5":"$2">"$1}}1' {input}.temp > {output}.temp
+        awk -F'\t' 'FNR==1{{num_fields=NF}} {{ non_empty=0; for(i=1;i<=NF;i++) if($i!="") non_empty++; }} non_empty==num_fields' {output}.temp > {output}
         sed -i '/__/d' {output}
         rm {input}.temp
+        rm {output}.temp
         """
         
 #Computes risk scores for individuals in the plink2 binary genotype data specified in the config. Reads precomputed allele counts to fill in missing genotype data (see plink2 docs).
