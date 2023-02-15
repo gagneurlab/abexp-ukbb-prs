@@ -1,0 +1,5 @@
+effect_allele
+other_allele
+effect_weight
+hm_chr
+hm_pos

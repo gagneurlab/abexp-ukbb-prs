@@ -34,7 +34,7 @@ rule format_pgs_weights:
     shell:
         r"""
         sed -i '/^[@#]/ d' {input}
-        cut -f4,5,6,9,10 {input} > {input}.temp
+        awk -F '\t' 'BEGIN {{OFS=FS}} NR==1{{while((getline var<"columns.txt") > 0) {{for(i=1;i<=NF;i++) if($i==var) {{cols[i]=1;break}}}} close("columns.txt")}} {{for(i=1;i<=NF;i++) {{printf "%s%s", (cols[i]?$i:""), (i==NF?"\n":(cols[i]?OFS:""))}}}}' {input} > {input}.temp
         awk -vOFS="\t" '{{$6="chr"$4":"$5":"$2">"$1}}1' {input}.temp > {output}
         sed -i '/__/d' {output}
         rm {input}.temp
